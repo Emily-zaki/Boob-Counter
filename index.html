@@ -131,22 +131,23 @@
             updateCounterDisplay(count);
         });
 
-        // Update counter when button is clicked
+         // Update counter when button is clicked
         buttonElement.addEventListener('click', () => {
             runTransaction(counterRef, (currentCount) => {
                 const newCount = (currentCount || 0) + 1;
-                return newCount <= 400 ? newCount : currentCount;
+                // return newCount <= 400 ? newCount : currentCount;
+                return newCount
             });
         });
 
         // Update the display
         function updateCounterDisplay(count) {
             counterElement.textContent = `${count} / 400`;
-            if (count >= 400) {
-                buttonElement.style.backgroundColor = '#cccccc';
-                buttonElement.style.cursor = 'not-allowed';
-                buttonElement.style.pointerEvents = 'none';
-            }
+            // if (count >= 400) {
+            //     buttonElement.style.backgroundColor = '#cccccc';
+            //     buttonElement.style.cursor = 'not-allowed';
+            //     buttonElement.style.pointerEvents = 'none';
+            // }
         }
     </script>
 </body>
