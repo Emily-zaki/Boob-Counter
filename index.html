@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boob Counter - Modern</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-  <style>
-    /* Allgemeine Einstellungen */
-    body {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boob Counter - Modern</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
       text-align: center;
       font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #ffffff, #f2f2f2); /* Dezenter Verlauf */
+      background: linear-gradient(135deg, #ffffff, #f2f2f2);
       margin: 0;
       padding: 0;
       display: flex;
@@ -21,26 +21,24 @@
       color: #333;
     }
 
-    /* Überschrift */
     h1 {
       font-size: 4em;
-      font-weight: 900; /* Fettere Schrift */
+      font-weight: 900;
       color: #333;
-      margin-bottom: 40px; /* Abstand zur Überschrift vergrößert */
+      margin-bottom: 40px;
       text-transform: uppercase;
       letter-spacing: 1.5px;
     }
 
-    /* Der Button */
     #button {
       width: 180px;
       height: 180px;
-      background: radial-gradient(circle at center, #ffddc1 60%, #ff995e); /* Satteres Orange-Rot */
+      background: radial-gradient(circle at center, #ffddc1 60%, #ff995e);
       border-radius: 50%;
       position: relative;
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      margin: 50px auto; /* Abstand oben und unten vergrößert */
+      margin: 50px auto;
       transition: transform 0.2s ease-in-out, box-shadow 0.2s;
     }
 
@@ -57,7 +55,7 @@
       content: '';
       width: 50px;
       height: 50px;
-      background: #ff4c4c; /* Satteres Rot */
+      background: #ff4c4c;
       border-radius: 50%;
       position: absolute;
       top: 50%;
@@ -65,17 +63,15 @@
       transform: translate(-50%, -50%);
     }
 
-    /* Zähler */
     #counter {
       font-size: 2.5em;
       font-weight: 700;
-      color: #ff4c4c; /* Satteres Rot */
-      margin-top: 20px; /* Abstand leicht erhöht */
+      color: #ff4c4c;
+      margin-top: 20px;
     }
 
-    /* Info-Text */
     #info {
-      margin-top: 40px; /* Abstand zur Beschreibung vergrößert */
+      margin-top: 40px;
       font-size: 1.1em;
       color: #555;
       max-width: 500px;
@@ -92,57 +88,67 @@
     #info a:hover {
       text-decoration: underline;
     }
-
-    /* Galerie */
-    #gallery {
-      margin-top: 30px;
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    #gallery img {
-      width: 140px;
-      height: 140px;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease-in-out;
-    }
-
-    #gallery img:hover {
-      transform: scale(1.05);
-    }
   </style>
 </head>
+
 <body>
-  <h1>Boob Counter</h1>
-  <div id="button"></div>
-  <h2 id="counter">0 / 400</h2>
-  <div id="info">
-    <p>Herzlich willkommen zum Boob Counter. Danke, dass du Teil von TAKE CARE bist! </p>
-    <p>
-      Mehr Infos findest du auf
-      <a href=https://www.instagram.com/_emilyzaki?igsh=ZnVmNXoxeWp2MXdl&utm_source=qr target="_blank"> meinem Instagram</a>.
-    </p>
-  </div>
+    <h1>Boob Counter</h1>
+    <div id="button"></div>
+    <h2 id="counter">0 / 400</h2>
+    <div id="info">
+        <p>Herzlich willkommen zum Boob Counter. Danke, dass du Teil von TAKE CARE bist!</p>
+        <p>Mehr Infos findest du auf
+            <a href="https://www.instagram.com/_emilyzaki?igsh=ZnVmNXoxeWp2MXdl&utm_source=qr" target="_blank">meinem Instagram</a>.
+        </p>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-  <script>
-    let count = 0;
-    const goal = 400;
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCjMcbeXGUC1btOSsPrFIPjsoXjQOwS-F8",
+          authDomain: "boob-counter.firebaseapp.com",
+          databaseURL: "https://boob-counter-default-rtdb.europe-west1.firebasedatabase.app",
+          projectId: "boob-counter",
+          storageBucket: "boob-counter.firebasestorage.app",
+          messagingSenderId: "737654195005",
+          appId: "1:737654195005:web:e1f0928078c519540fbb54"
+        };
 
-    document.getElementById("button").addEventListener("click", () => {
-      if (count < goal) {
-        count += 1;
-        document.getElementById("counter").innerText = `${count} / ${goal}`;
-      }
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const counterRef = ref(database, 'counter');
 
-      // Animation
-      const button = document.getElementById("button");
-      button.style.transform = "scale(0.9)";
-      setTimeout(() => button.style.transform = "scale(1)", 200);
-    });
-  </script>
+        // DOM elements
+        const buttonElement = document.getElementById('button');
+        const counterElement = document.getElementById('counter');
+        
+        // Initialize counter from Firebase
+        onValue(counterRef, (snapshot) => {
+            const count = snapshot.val() || 0;
+            updateCounterDisplay(count);
+        });
+
+        // Update counter when button is clicked
+        buttonElement.addEventListener('click', () => {
+            runTransaction(counterRef, (currentCount) => {
+                const newCount = (currentCount || 0) + 1;
+                return newCount <= 400 ? newCount : currentCount;
+            });
+        });
+
+        // Update the display
+        function updateCounterDisplay(count) {
+            counterElement.textContent = `${count} / 400`;
+            if (count >= 400) {
+                buttonElement.style.backgroundColor = '#cccccc';
+                buttonElement.style.cursor = 'not-allowed';
+                buttonElement.style.pointerEvents = 'none';
+            }
+        }
+    </script>
 </body>
+
 </html>
