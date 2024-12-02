@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boob Counter - Modern</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* Allgemeine Einstellungen */
+    body {
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #ffffff, #f2f2f2); /* Dezenter Verlauf */
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    /* Überschrift */
+    h1 {
+      font-size: 4em;
+      font-weight: 900; /* Fettere Schrift */
+      color: #333;
+      margin-bottom: 40px; /* Abstand zur Überschrift vergrößert */
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    /* Der Button */
+    #button {
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle at center, #ffddc1 60%, #ff995e); /* Satteres Orange-Rot */
+      border-radius: 50%;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      margin: 50px auto; /* Abstand oben und unten vergrößert */
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+    }
+
+    #button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    #button:active {
+      transform: scale(0.95);
+    }
+
+    #button::after {
+      content: '';
+      width: 50px;
+      height: 50px;
+      background: #ff4c4c; /* Satteres Rot */
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Zähler */
+    #counter {
+      font-size: 2.5em;
+      font-weight: 700;
+      color: #ff4c4c; /* Satteres Rot */
+      margin-top: 20px; /* Abstand leicht erhöht */
+    }
+
+    /* Info-Text */
+    #info {
+      margin-top: 40px; /* Abstand zur Beschreibung vergrößert */
+      font-size: 1.1em;
+      color: #555;
+      max-width: 500px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    #info a {
+      color: #ff4c4c;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    #info a:hover {
+      text-decoration: underline;
+    }
+
+    /* Galerie */
+    #gallery {
+      margin-top: 30px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    #gallery img {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    #gallery img:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>Boob Counter</h1>
+  <div id="button"></div>
+  <h2 id="counter">0 / 400</h2>
+  <div id="info">
+    <p>Herzlich willkommen zum Boob Counter. Danke, dass du Teil von TAKE CARE bist! </p>
+    <p>
+      Mehr Infos findest du auf
+      <a href=https://www.instagram.com/_emilyzaki?igsh=ZnVmNXoxeWp2MXdl&utm_source=qr target="_blank"> meinem Instagram</a>.
+    </p>
+  </div>
+
+  <script>
+    let count = 0;
+    const goal = 400;
+
+    document.getElementById("button").addEventListener("click", () => {
+      if (count < goal) {
+        count += 1;
+        document.getElementById("counter").innerText = `${count} / ${goal}`;
+      }
+
+      // Animation
+      const button = document.getElementById("button");
+      button.style.transform = "scale(0.9)";
+      setTimeout(() => button.style.transform = "scale(1)", 200);
+    });
+  </script>
+</body>
+</html>
